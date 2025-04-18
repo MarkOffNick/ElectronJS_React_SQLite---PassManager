@@ -1,6 +1,6 @@
 {
   "name": "pass-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An Electron application with React and TypeScript",
   "main": "./out/main/index.js",
   "author": "example.com",
@@ -70,11 +70,21 @@
     ],
     "productName": "PassManager",
     "win": {
-      "target": "portable"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "requestedExecutionLevel": "requireAdministrator"
     },
-    "portable": {
-      "unicode": false,
-      "artifactName": "my_electron_app.exe"
+    "nsis": {
+      "allowElevation": true,
+      "oneClick": false,
+      "perMachine": true,
+      "createStartMenuShortcut": true
     }
   }
 }

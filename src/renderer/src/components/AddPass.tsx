@@ -50,7 +50,7 @@ function AddPass(): JSX.Element {
   }
 
   return (
-    <Form form={form} layout="vertical" onFinish={onFinish}>
+    <Form form={form} layout="vertical" onFinish={onFinish} style={{ width: '300px' }}>
       <Form.Item
         label="Имя"
         name="name"
@@ -85,7 +85,7 @@ function AddPass(): JSX.Element {
           <Option value="PERSONAL">Личный</Option>
         </Select>
       </Form.Item>
-      <Form.Item>
+      <Form.Item style={{ textAlign: 'center' }}>
         <Button type="primary" htmlType="submit">
           Сохранить
         </Button>

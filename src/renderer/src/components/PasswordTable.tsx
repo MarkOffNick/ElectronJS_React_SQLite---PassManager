@@ -79,18 +79,47 @@ const PasswordTable: React.FC<PasswordTableProps> = ({ loadPasswordsMethod }) =>
       title: 'Ресурс',
       dataIndex: 'name',
       key: 'name',
-      render: (text: string): React.JSX.Element => <span style={{ textAlign: 'left' }}>{text}</span>
+      render: (text: string): React.JSX.Element => (
+        <span
+          style={{
+            textAlign: 'left',
+            display: 'block',
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis'
+          }}
+        >
+          {text}
+        </span>
+      )
     },
     {
       title: 'Пользователь',
       dataIndex: 'user',
       key: 'user',
       render: (text: string): React.JSX.Element => (
-        <span style={{ textAlign: 'left' }}>
-          {text}
+        <span
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%'
+          }}
+        >
+          <span
+            style={{
+              textAlign: 'left',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              flexGrow: 1
+            }}
+          >
+            {text}
+          </span>
           <CopyOutlined
             onClick={() => copyToClipboard(text)}
-            style={{ marginLeft: 8, cursor: 'pointer', float: 'right' }}
+            style={{ marginLeft: 8, cursor: 'pointer' }}
           />
         </span>
       )
@@ -100,18 +129,39 @@ const PasswordTable: React.FC<PasswordTableProps> = ({ loadPasswordsMethod }) =>
       dataIndex: 'pass',
       key: 'pass',
       render: (text: string, record: Passwords): React.JSX.Element => (
-        <span style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ textAlign: 'left' }}>
+        <span
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%'
+          }}
+        >
+          <span
+            style={{
+              textAlign: 'left',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              flexGrow: 1
+            }}
+          >
             {visiblePasswordId === record.id ? text : '••••••••'}
           </span>
-          <span
-            onClick={() => togglePasswordVisibility(record.id)}
-            style={{ marginLeft: 8, cursor: 'pointer' }}
-          >
-            {visiblePasswordId === record.id ? <EyeInvisibleOutlined /> : <EyeOutlined />}
-
+          <span style={{ display: 'flex', alignItems: 'center', marginLeft: 8 }}>
+            <span
+              onClick={() => {
+                togglePasswordVisibility(record.id)
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              {visiblePasswordId === record.id ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+            </span>
             <CopyOutlined
-              onClick={() => copyToClipboard(text)}
+              onClick={(e) => {
+                e.stopPropagation()
+                copyToClipboard(text)
+              }}
               style={{ marginLeft: 8, cursor: 'pointer' }}
             />
           </span>
@@ -134,7 +184,7 @@ const PasswordTable: React.FC<PasswordTableProps> = ({ loadPasswordsMethod }) =>
   ]
 
   return (
-    <div style={{ overflowY: 'auto', height: '100vh'}}>
+    <div style={{ overflowY: 'auto', height: '100vh' }}>
       <Table
         style={{ width: '100vw' }}
         dataSource={passwords}
